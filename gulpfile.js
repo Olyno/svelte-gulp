@@ -3,6 +3,7 @@ const svelte = require('rollup-plugin-svelte');
 const resolve = require('@rollup/plugin-node-resolve');
 const commonjs = require('@rollup/plugin-commonjs');
 const { terser } = require('rollup-plugin-terser');
+const { routify } = require('@sveltech/routify');
 
 const { src, watch, series } = require('gulp');
 const connect = require('gulp-connect');
@@ -40,6 +41,12 @@ function buildApp() {
     return rollup.rollup({
         input: 'src/main.js',
         plugins: [
+
+            // Routing
+            routify({
+                singleBuild: production
+            }),
+
             svelte({
                 // enable run-time checks when not in production
                 dev: !production,
